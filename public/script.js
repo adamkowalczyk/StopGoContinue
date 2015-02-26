@@ -1,7 +1,7 @@
 // TODO: strip @founderscoders and #hashtags from text
-// Make colours proportional to colour space -curenttly, illegal values possible .. something like (255/maxRetweets)*retweets
-// or colorScale?
-// add link to tweet, to retweet...
+// Make colours proportional to colour space -curenttly, illegal values possible .. something like (255/maxRetweets)*retweets or colorScale?
+// 
+// 
 
 
 // Mock Data ////////////////////////////////////////////////////////////////////////////
@@ -34,7 +34,7 @@ setInterval(function(){
 	else {
 		count++;
 	} 
-},7000);
+},3000);
 ///////////////////////////////////////////////////////////////////////////////////
 
 // Set trafficLight to change dataset
@@ -50,7 +50,7 @@ function getTweets() {
 	$.getJSON('./search')
 	.done(function(tweets){
 		console.log(tweets);
-		drawChart(currentMock); //(tweets)
+		drawChart(mock1); //(tweets)
 	});
 }
 
@@ -58,7 +58,7 @@ function drawChart(data) {
 
 	var xScale = d3.scale.ordinal()
 						.domain(d3.range(data[trafficLight].length))
-						.rangeRoundBands([0, w], 0.05);
+						.rangeRoundBands([0, w], 0.02);
 	
 	// Get array of retweet counts for current chart
 	var retweetList = [];
@@ -113,7 +113,7 @@ function drawChart(data) {
 			})
 			.attr({
 				x 				: 	500,
-				y 				: 	h * 5,
+				y 				: 	h * 3,
 				class 			: 	'target',
 				'tweet-id'		: 	function(d) { return d.id; },
 				'tweet-url'		: 	function(d) { return d.url; },
@@ -138,7 +138,7 @@ function drawChart(data) {
 	tweetText.exit()
 		.transition()
 		.duration(500)
-		.attr('y', h*5)
+		.attr('y', h*3)
 		.remove();
 
 	// Transition elements in, AND alter extant elements in place
@@ -184,7 +184,7 @@ function drawChart(data) {
 				return d.text +' - ' + d.retweets;
 			})
 			.attr({
-				y 			: 	function(d,i) { return i * 30 + 50; },
+				y 			: 	function(d,i) { return i * 30 + 15; },
 				class 		: 	'target',
 				'tweet-id'	: 	function(d){ return d.id; },
 				'tweet-url'	: 	function(d){ return d.url; }
@@ -199,7 +199,7 @@ $(document).ready(function(){
 
 	svg = d3.select("body").append("svg").attr( { width : w, height : h, id : 'barchart' });
 
-	svg2 = d3.select("body").append("svg").attr( { width : w, height : h*5 , id : 'tweet-text'});
+	svg2 = d3.select("body").append("svg").attr( { width : w, height : h*3 , id : 'tweet-text'});
 
 	// Highlight related bars/text on mouseover
 	var barColor;

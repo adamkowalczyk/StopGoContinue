@@ -26,6 +26,7 @@ text {
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 20px;
+	text-align: center;
 }
 
 #barchart {
@@ -35,7 +36,7 @@ text {
 }
 
 #tweet-text {
-	margin-top : 50px;
+	margin-top : 25px;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;

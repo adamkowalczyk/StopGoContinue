@@ -53,7 +53,9 @@ function twitterSearch(since) {
 			if (!tweet.retweeted_status) {
 				// tweet URL: https://twitter.com/{user.screen_name}/status/{id_str}
 				var tweetUrl = 'https://twitter.com/' + tweet.user.screen_name +'/status/' + tweet.id_str ;
-				results[tweet.id] = {text : tweet.text, retweets: tweet.retweet_count, hashtags: tweet.entities.hashtags, url: tweetUrl};
+				// strip hashtags and username from tweet text
+				var tweetText = tweet.text.replace(/(^|\W)(@[a-z\d][\w-]*)|(#[a-z\d][\w-]*)/ig, '' ).trim();
+				results[tweet.id] = {text : tweetText, retweets: tweet.retweet_count, hashtags: tweet.entities.hashtags, url: tweetUrl};
 			}
 			// else tweet is retweet - set retweet count if greater than current
 			else {
