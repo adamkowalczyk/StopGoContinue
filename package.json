@@ -1,0 +1,18 @@
+{
+  "name": "StopGoContinue",
+  "version": "1.0.0",
+  "description": "A stop/go/continue implementation, using twitter",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adam Kowalczyk",
+  "license": "ISC",
+  "dependencies": {
+    "ecstatic": "^0.5.8",
+    "twitter": "^1.2.1"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}

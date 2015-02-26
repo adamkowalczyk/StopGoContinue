@@ -1,0 +1,49 @@
+h1 {
+	text-align: center;
+	color: teal;
+}
+
+label {
+	color: white;
+	/*display: inline;*/
+	margin-right: 30px;
+}
+
+body {
+	background-color: #252525;
+}
+
+text {
+	width: 50%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#radio-div {
+	width: 300px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 20px;
+}
+
+#barchart {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#tweet-text {
+	margin-top : 50px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+/*unused?*/
+.hidden {
+	display: none;
+}
+
