@@ -23,6 +23,8 @@ var mock3 = {
 	'continue' : [{id: 1 , retweets: 2 , text: 'An Idea', url : 'https://twitter.com/JavaScriptDaily/status/570599367331192832' }, {id: 2 , retweets: 13 , text: 'Another Idea', url : 'https://twitter.com/JavaScriptDaily/status/570599367331192832' }],
 };
 
+var mockEmpty = {};
+
 var mocks = [mock1, mock2, mock3];
 var count = 0;
 var currentMock;
@@ -34,7 +36,7 @@ setInterval(function(){
 	else {
 		count++;
 	} 
-},3000);
+},5000);
 ///////////////////////////////////////////////////////////////////////////////////
 
 // Set trafficLight to change dataset
@@ -50,7 +52,7 @@ function getTweets() {
 	$.getJSON('./search')
 	.done(function(tweets){
 		console.log(tweets);
-		drawChart(mock1); //(tweets)
+		drawChart(tweets); //(tweets)
 	});
 }
 
@@ -225,6 +227,6 @@ $(document).ready(function(){
 	setInterval(function(){
 		trafficLight = $('.chart-select:checked').val();
 		getTweets();
-	},3000);
+	},5000);
 
 });

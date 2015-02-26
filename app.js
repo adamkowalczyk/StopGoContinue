@@ -70,7 +70,7 @@ function twitterSearch(since) {
 setInterval(function(){
 	// since date, format YEAR-MO-DA
 	twitterSearch('2015-02-23');
-},3000);
+},5000);
 
 // SERVER
 
