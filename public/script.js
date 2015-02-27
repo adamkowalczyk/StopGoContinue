@@ -166,13 +166,13 @@ function drawChart(data) {
 			title		: 	function(d) { return d.text; },
 			fill		: 	function(d) {
 											if (trafficLight === 'go') {
-												return "rgb(0," + colorScale(d.retweets) + ",0)";  // (d.retweets * 30)
+												return "rgb(0," + Math.floor(colorScale(d.retweets))+ ",0)";  // (d.retweets * 30)
 											}
 											else if (trafficLight === 'stop') {
-												return "rgb(" + colorScale(d.retweets) + ",0,0)";
+												return "rgb(" + Math.floor(colorScale(d.retweets)) + ",0,0)";
 											}
 											else if (trafficLight === 'continue') {
-												return "rgb(" + colorScale(d.retweets) + "," + Math.floor(colorScale(d.retweets / 2)) +  ",0)";
+												return "rgb(" + Math.floor(colorScale(d.retweets)) + "," + Math.floor(colorScale(d.retweets / 2)) +  ",0)";
 											}
 										}
 		});
@@ -218,13 +218,13 @@ function drawChart(data) {
 			d3.select('rect[tweet-id="'+d3.select(this).attr("tweet-id")+'"]')
 				.attr('fill', function(d) { 
 												if (trafficLight === 'go') {
-													return "rgb(0," + colorScale(d.retweets) + ",0)";  // (d.retweets * 30)
+													return "rgb(0," + Math.floor(colorScale(d.retweets)) + ",0)";  // (d.retweets * 30)
 												}
 												else if (trafficLight === 'stop') {
-													return "rgb(" + colorScale(d.retweets) + ",0,0)";
+													return "rgb(" + Math.floor(colorScale(d.retweets)) + ",0,0)";
 												}
 												else if (trafficLight === 'continue') {
-													return "rgb(" + colorScale(d.retweets) + "," + Math.floor(colorScale(d.retweets / 2)) +  ",0)";
+													return "rgb(" + Math.floor(colorScale(d.retweets)) + "," + Math.floor(colorScale(d.retweets / 2)) +  ",0)";
 												}
 											});
 		});
