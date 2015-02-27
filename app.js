@@ -55,7 +55,7 @@ function twitterSearch(since) {
 				var tweetUrl = 'https://twitter.com/' + tweet.user.screen_name +'/status/' + tweet.id_str ;
 				// strip hashtags and username from tweet text
 				var tweetText = tweet.text.replace(/(^|\W)(@[a-z\d][\w-]*)|(#[a-z\d][\w-]*)/ig, '' ).trim();
-				results[tweet.id] = {text : tweetText, retweets: tweet.retweet_count, hashtags: tweet.entities.hashtags, url: tweetUrl};
+				results[tweet.id] = {text : tweetText, retweets: tweet.retweet_count, hashtags: tweet.entities.hashtags, url: tweetUrl, user: tweet.user.screen_name};
 			}
 			// else tweet is retweet - set retweet count if greater than current
 			else {
@@ -69,7 +69,7 @@ function twitterSearch(since) {
 
 setInterval(function(){
 	// since date, format YEAR-MO-DA
-	twitterSearch('2015-02-23');
+	twitterSearch('2015-02-27');
 },5000);
 
 // SERVER
@@ -86,19 +86,22 @@ var server = http.createServer(function(req, res){
 					packagedResult.stop.push({ 	id : key, 
 												text : results[key].text, 
 												retweets : results[key].retweets,
-												url : results[key].url });
+												url : results[key].url, 
+												user: results[key].user });
 				}
 				else if ( hashtag.text.match(/go/i) ) {
 					packagedResult.go.push({ 	id : key, 
 												text : results[key].text, 
 												retweets : results[key].retweets,
-												url : results[key].url });
+												url : results[key].url, 
+												user: results[key].user });
 				}
 				else if ( hashtag.text.match(/continue/i) ) {
 					packagedResult['continue'].push({	id : key, 
 														text : results[key].text, 
 														retweets : results[key].retweets,
-														url : results[key].url });
+														url : results[key].url, 
+														user: results[key].user });
 				}
 			});
 		}

@@ -1,6 +1,6 @@
 h1 {
 	text-align: center;
-	color: teal;
+	color: white;
 }
 
 label {
@@ -43,7 +43,7 @@ text {
 	text-align: center;
 }
 
-/*unused?*/
+/*unused*/
 .hidden {
 	display: none;
 }
