@@ -4,49 +4,27 @@ var path = require('path');
 var url = require('url');
 var Twitter = require('twitter');
 var ecstatic = require('ecstatic')({root: __dirname + '/public'});
+var credentials = require('./credentials.js');
 
-// Check for config.json in root
-var configCheck = true;
-var config;
-try {
-	fs.readFileSync(path.join(__dirname,'config.json'));
-}
-catch (e) {
-	configCheck = false;
-}
-if (configCheck) {
-	config = require('./config.json');
-}
-
-// Instantiate client 
+// Instantiate twitter client
 var client;
-if (configCheck) {
+credentials.getCredentials(function(keys){
+	
 	client = new Twitter({
-		consumer_key: config.cKey,
-		consumer_secret: config.cSecret,
-		access_token_key: config.atKey,
-		access_token_secret: config.atSecret
+		consumer_key: keys.consumer_key,
+		consumer_secret: keys.consumer_secret,
+		access_token_key: keys.access_token_key,
+		access_token_secret: keys.access_token_secret
 	});
-}
-else {
-	client = new Twitter({
-		consumer_key: process.env.C_KEY,
-		consumer_secret: process.env.C_SECRET,
-		access_token_key: process.env.AT_KEY,
-		access_token_secret: process.env.AT_SECRET
-	});
-}
+});
 
-// hashtags is an array of objects, hashtag text is [].text
+
+////////////////////////////////////////////////////////////////////////////////////////
 var results = {};
 
-// TWITTER SEARCH FUNCTION  -URL (PARAM) IN - ARRAY OUT
-
-
+// TWITTER SEARCH 
 function twitterSearch(since) {
-
 	client.get('search/tweets', {q : '"@founderscoders" #stop OR #go OR #continue', result_type : 'recent', count: '100', since : since} , function(error, tweets, response){
-		// console.log(response);
 	// POPULATE RESULTS OBJECT
 		if (error) {
 			console.log(error);
@@ -111,7 +89,7 @@ var server = http.createServer(function(req, res){
 				}
 			});
 		}
-		console.log(packagedResult);
+		console.log('Results: \n' + packagedResult);
 		res.writeHead(200, {'Content-Type': 'application/json'});
 		res.end(JSON.stringify(packagedResult));
 	}

@@ -1,8 +1,3 @@
-// TODO: strip @founderscoders and #hashtags from text
-// Make colours proportional to colour space -curenttly, illegal values possible .. something like (255/maxRetweets)*retweets or colorScale?
-// Do mouseover highlight in d3 use the data, not a placeholder
-// 
-
 
 // Mock Data ////////////////////////////////////////////////////////////////////////////
 var mock1 = {
@@ -42,7 +37,7 @@ setInterval(function(){
 // Set trafficLight to change dataset
 var trafficLight;
 
- //Width and height
+//Width and height
 var w = 1200;
 var h = 300;
 
@@ -52,7 +47,7 @@ function getTweets() {
 	$.getJSON('./search')
 	.done(function(tweets){
 		console.log(tweets);
-		drawChart(tweets); //(tweets)
+		drawChart(tweets); //(tweets) or (mock) to test
 	});
 }
 
@@ -73,6 +68,7 @@ function drawChart(data) {
 						.domain([0, d3.max(retweetList) + 1])
 						.range([0, h]);
 
+	// scale for rgb colour values
 	var colorScale = d3.scale.linear()
 						.domain([0, d3.max(retweetList)])
 						.range([0,255]);
@@ -81,7 +77,7 @@ function drawChart(data) {
 	var labels = svg.selectAll("text").data(data[trafficLight]);
 	var tweetText = svg2.selectAll('text').data(data[trafficLight]);
 
-	// Add new bars off right
+	// Add new elements off right/bottom
 	bars.enter()
 			.append("rect")
 			.attr({
@@ -98,7 +94,6 @@ function drawChart(data) {
 				title			: 	function(d) { return d.text; }
 			});
 
-	// Add new text 
 	labels.enter()
 			.append("text")
 			.text(function(d) {
@@ -203,9 +198,10 @@ function drawChart(data) {
 				title		: 	function(d) { return d.user; }
 			});
 
+	// 'Opt-in' to bootstrap tooltips
 	$("body").tooltip({ selector: '[data-toggle=tooltip]' });
 
-
+	// Highlight associated bars/text on mouseover. Also, handle title/data-original-title attrs to keep bootstrap happy
 	d3.selectAll('.target')
 		.on('mouseover', function(){
 			console.log(d3.select(this).attr('tweet-id'));
@@ -243,24 +239,30 @@ function drawChart(data) {
 
 $(document).ready(function(){
 
+	// Draw empty svg elements
 	svg = d3.select("body").append("svg").attr( { width : w, height : h, id : 'barchart' });
-
 	svg2 = d3.select("body").append("svg").attr( { width : w, height : h * 2 , id : 'tweet-text'});
+
+	// Draw chart on page load
+	trafficLight = $('.chart-select:checked').val();
+	getTweets();
+
+	// Redraw chart on radio change
+	$('.chart-select').click(function(){
+		trafficLight = $('.chart-select:checked').val();
+		getTweets();
+	});
+
+	// Redraw chart every 5 seconds (same as server api poll interval) TODO: only redraw if data has changed
+	setInterval(function(){
+		trafficLight = $('.chart-select:checked').val();
+		getTweets();
+	}, 5000);
 
 	// Open tweet in new tab on click
 	$(document).on('click', '.target', function(){
 		var tweetUrl = $(this).attr('tweet-url');
 		window.open(tweetUrl);
 	});
-
-	$('.chart-select').click(function(){
-		trafficLight = $('.chart-select:checked').val();
-		getTweets();
-	});
-
-	setInterval(function(){
-		trafficLight = $('.chart-select:checked').val();
-		getTweets();
-	},5000);
 
 });
