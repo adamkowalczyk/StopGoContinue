@@ -171,7 +171,7 @@ function drawChart(data) {
 												return "rgb(" + colorScale(d.retweets) + ",0,0)";
 											}
 											else if (trafficLight === 'continue') {
-												return "rgb(" + colorScale(d.retweets) + "," + colorScale(d.retweets / 2) +  ",0)";
+												return "rgb(" + colorScale(d.retweets) + "," + Math.floor(colorScale(d.retweets / 2)) +  ",0)";
 											}
 										}
 		});
@@ -222,7 +222,7 @@ function drawChart(data) {
 													return "rgb(" + colorScale(d.retweets) + ",0,0)";
 												}
 												else if (trafficLight === 'continue') {
-													return "rgb(" + colorScale(d.retweets) + "," + colorScale(d.retweets / 2) +  ",0)";
+													return "rgb(" + colorScale(d.retweets) + "," + Math.floor(colorScale(d.retweets / 2)) +  ",0)";
 												}
 											});
 		});
