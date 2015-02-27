@@ -210,29 +210,32 @@ function drawChart(data) {
 		.on('mouseover', function(){
 			console.log(d3.select(this).attr('tweet-id'));
 			d3.select('text[tweet-id="'+d3.select(this).attr("tweet-id")+'"]')
-				.attr('data-original-title', function(d){ return d.user; })
-				.attr('fill', 'rgb(125,0,255)');
+				.attr({ 'data-original-title' 	: function(d){ return d.user; },
+						fill 					: 'rgb(125,0,255)'});
 			d3.select('rect[tweet-id="'+d3.select(this).attr("tweet-id")+'"]')
-				.attr('data-original-title', function(d){ return d.text; })
-				.attr('fill', 'rgb(125,0,255)');
+				.attr({ 'data-original-title' 	: function(d){ return d.text; },
+						fill 					: 'rgb(125,0,255)'});
 		})
 		.on('mouseleave', function(){
 			d3.select('text[tweet-id="'+d3.select(this).attr("tweet-id")+'"]')
-				.attr('fill', 'white')
-				.attr('title', function(d){ return d.user; });
+				.attr({ 'title' : function(d) { return d.user; },
+						'fill'	: 'white' 
+				});
+				
 			d3.select('rect[tweet-id="'+d3.select(this).attr("tweet-id")+'"]')
-				.attr('title', function(d){ return d.text; })
-				.attr('fill', function(d) { 
-												if (trafficLight === 'go') {
-													return "rgb(0," + Math.floor(colorScale(d.retweets)) + ",0)";  // (d.retweets * 30)
+				.attr({	'title' : function(d) { return d.text; },
+						'fill'	: function(d) 	{ 
+													if (trafficLight === 'go') {
+														return "rgb(0," + Math.floor(colorScale(d.retweets)) + ",0)";
+													}
+													else if (trafficLight === 'stop') {
+														return "rgb(" + Math.floor(colorScale(d.retweets)) + ",0,0)";
+													}
+													else if (trafficLight === 'continue') {
+														return "rgb(" + Math.floor(colorScale(d.retweets)) + "," + Math.floor(colorScale(d.retweets / 2)) +  ",0)";
+													}
 												}
-												else if (trafficLight === 'stop') {
-													return "rgb(" + Math.floor(colorScale(d.retweets)) + ",0,0)";
-												}
-												else if (trafficLight === 'continue') {
-													return "rgb(" + Math.floor(colorScale(d.retweets)) + "," + Math.floor(colorScale(d.retweets / 2)) +  ",0)";
-												}
-											});
+					});
 		});
 
 }
