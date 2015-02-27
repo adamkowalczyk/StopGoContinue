@@ -105,7 +105,6 @@ var server = http.createServer(function(req, res){
 				}
 			});
 		}
-		console.log(results);
 		res.writeHead(200, {'Content-Type': 'application/json'});
 		res.end(JSON.stringify(packagedResult));
 	}

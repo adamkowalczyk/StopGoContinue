@@ -242,6 +242,11 @@ $(document).ready(function(){
 		window.open(tweetUrl);
 	});
 
+	$('.chart-select').click(function(){
+		trafficLight = $('.chart-select:checked').val();
+		getTweets();
+	});
+
 	setInterval(function(){
 		trafficLight = $('.chart-select:checked').val();
 		getTweets();
