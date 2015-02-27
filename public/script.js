@@ -163,6 +163,7 @@ function drawChart(data) {
 			class		: 	'target',
 			'tweet-id'	: 	function(d){ return d.id; },
 			'tweet-url'	: 	function(d){ return d.url; },
+			title		: 	function(d) { return d.text; },
 			fill		: 	function(d) {
 											if (trafficLight === 'go') {
 												return "rgb(0," + colorScale(d.retweets) + ",0)";  // (d.retweets * 30)
@@ -198,7 +199,8 @@ function drawChart(data) {
 				y 			: 	function(d,i) { return i * 30 + 30; }, // 2 columns <= Math.floor(i/2)
 				class 		: 	'target',
 				'tweet-id'	: 	function(d){ return d.id; },
-				'tweet-url'	: 	function(d){ return d.url; }
+				'tweet-url'	: 	function(d){ return d.url; },
+				title		: 	function(d) { return d.user; }
 			});
 
 	$("body").tooltip({ selector: '[data-toggle=tooltip]' });
