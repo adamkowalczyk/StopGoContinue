@@ -188,13 +188,13 @@ function drawChart(data) {
 	tweetText.transition()
 			.duration(500)
 			.text(function(d){
-				return d.text +' - ' + d.retweets;
+				return d.text +' - ' + (d.retweets + 1);
 			})
 			.attr({
 				y 			: 	function(d,i) { return i * 30 + 30; }, // 2 columns <= Math.floor(i/2)
 				class 		: 	'target',
-				'tweet-id'	: 	function(d){ return d.id; },
-				'tweet-url'	: 	function(d){ return d.url; },
+				'tweet-id'	: 	function(d) { return d.id; },
+				'tweet-url'	: 	function(d) { return d.url; },
 				title		: 	function(d) { return d.user; }
 			});
 
