@@ -102,7 +102,7 @@ function drawChart(data) {
 	labels.enter()
 			.append("text")
 			.text(function(d) {
-				return d.retweets;
+				return d.retweets + 1;
 			})
 			.attr({
 				x				: 	w,
@@ -116,7 +116,7 @@ function drawChart(data) {
 	tweetText.enter()
 			.append('text')
 			.text(function(d){
-				return d.text +' - ' + d.retweets;
+				return d.text +' - ' + (d.retweets + 1);
 			})
 			.attr({
 				x 				: 	25, //2 columns <= function(d,i) {return i % 2 === 0 ?  50 : 650 ;},
@@ -166,7 +166,7 @@ function drawChart(data) {
 			title		: 	function(d) { return d.text; },
 			fill		: 	function(d) {
 											if (trafficLight === 'go') {
-												return "rgb(0," + Math.floor(colorScale(d.retweets))+ ",0)";  // (d.retweets * 30)
+												return "rgb(0," + Math.floor(colorScale(d.retweets))+ ",0)";  
 											}
 											else if (trafficLight === 'stop') {
 												return "rgb(" + Math.floor(colorScale(d.retweets)) + ",0,0)";
@@ -181,7 +181,7 @@ function drawChart(data) {
 	labels.transition()
 			.duration(500)
 			.text(function(d) {
-				return d.retweets;
+				return d.retweets + 1;
 			})
 			.attr({
 				x 			: 	function(d, i) { return xScale(i) + xScale.rangeBand() / 2; },
@@ -209,13 +209,19 @@ function drawChart(data) {
 	d3.selectAll('.target')
 		.on('mouseover', function(){
 			console.log(d3.select(this).attr('tweet-id'));
-			d3.selectAll('[tweet-id="'+d3.select(this).attr("tweet-id")+'"]')
-			.attr('fill', 'rgb(125,0,255)');
+			d3.select('text[tweet-id="'+d3.select(this).attr("tweet-id")+'"]')
+				.attr('data-original-title', function(d){ return d.user; })
+				.attr('fill', 'rgb(125,0,255)');
+			d3.select('rect[tweet-id="'+d3.select(this).attr("tweet-id")+'"]')
+				.attr('data-original-title', function(d){ return d.text; })
+				.attr('fill', 'rgb(125,0,255)');
 		})
 		.on('mouseleave', function(){
 			d3.select('text[tweet-id="'+d3.select(this).attr("tweet-id")+'"]')
-				.attr('fill', 'white');
+				.attr('fill', 'white')
+				.attr('title', function(d){ return d.user; });
 			d3.select('rect[tweet-id="'+d3.select(this).attr("tweet-id")+'"]')
+				.attr('title', function(d){ return d.text; })
 				.attr('fill', function(d) { 
 												if (trafficLight === 'go') {
 													return "rgb(0," + Math.floor(colorScale(d.retweets)) + ",0)";  // (d.retweets * 30)
