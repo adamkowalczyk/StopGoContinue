@@ -71,7 +71,7 @@ function drawChart(data) {
 	// scale for rgb colour values
 	var colorScale = d3.scale.linear()
 						.domain([0, d3.max(retweetList)])
-						.range([0,255]);
+						.range([50,255]);
 
 	var bars = svg.selectAll("rect").data(data[trafficLight]);
 	var labels = svg.selectAll("text").data(data[trafficLight]);
