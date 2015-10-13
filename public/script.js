@@ -22,7 +22,7 @@ var mockEmpty = {};
 
 var mocks = [mock1, mock2, mock3];
 var count = 0;
-var currentMock;
+var currentMock = mocks[0];
 setInterval(function(){
 	currentMock = mocks[count];
 	if (count === 2) {
