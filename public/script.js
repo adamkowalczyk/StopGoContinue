@@ -44,11 +44,15 @@ var h = 300;
 var svg;
 
 function getTweets() {
-	$.getJSON('./search')
-	.done(function(tweets){
-		console.log(tweets);
-		drawChart(tweets); //(tweets) or (mock) to test
-	});
+	drawChart(currentMock);  
+	
+	// TWITTER API CALL COMMENTED OUT FOR DEMO
+	
+	// $.getJSON('./search')
+	// .done(function(tweets){
+	// 	console.log(tweets);
+	// 	drawChart(currentMock); //(tweets) or (currentMock) to test
+	// });
 }
 
 function drawChart(data) {

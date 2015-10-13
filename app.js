@@ -53,7 +53,10 @@ function twitterSearch(since) {
 
 setInterval(function(){
 	// since date, format YEAR-MO-DA
-	twitterSearch('2015-03-06');
+	
+	// TWITTER API CALL COMMENTED OUT FOR DEMO
+	
+	//twitterSearch('2015-03-06');
 },5000);
 
 // SERVER
